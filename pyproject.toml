@@ -4,12 +4,25 @@ version = "0.1.0"
 description = ""
 authors = ["Stefan <stefanvr@gmail.com>"]
 readme = "README.md"
-packages = [{include = "openaq_project"}]
+packages = [{include = "openaqtools", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+boto3 = "^1.28.69"
+py-openaq = "^1.1.0"
+requests = "^2.31.0"
+polars = "^0.19.11"
+matplotlib = "3.7.0"
+geopy = "^2.4.0"
+jupyter = "^1.0.0"
+logging-tree = "^1.9"
+ipympl = "^0.9.3"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.26.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
