@@ -12,15 +12,16 @@ logger.addHandler(sh)
 
 
 
-def messages_to_df(messages):
-    """Parses message data to 
+def messages_to_df(messages: list) -> pl.DataFrame:
+    """Converts list of messages to a dataframe
 
     Args:
-        messages (_type_): _description_
+        messages (list): messages
 
     Returns:
-        _type_: _description_
+        pl.DataFrame: dataframe
     """
+
     measurements = []
     for message in messages:
         body = json.loads(message["Body"])
@@ -32,30 +33,41 @@ def messages_to_df(messages):
     return df
 
 
-def receive_messages(queue_url, region_name, max_nr_messages=100000, visibility_timeout=1800, page_size_messages=10):
-    """_summary_
+def receive_messages(
+    queue_url: str,
+    region_name: str,
+    max_nr_messages: int = 100000,
+    visibility_timeout: int = 1800,
+    page_size_messages: int = 10
+    ) -> list:
+    """Queries for messages on aws sqs
 
     Args:
-        queue_url (_type_): _description_
-        region_name (_type_): _description_
-        max_nr_messages (int, optional): _description_. Defaults to 100000.
-        visibility_timeout (int, optional): _description_. Defaults to 1800.
-        page_size_messages (int, optional): _description_. Defaults to 10.
+        queue_url (str): url of the queue
+        region_name (str): region name of the queue
+        max_nr_messages (int, optional): Maximum nr of messages to receive. Defaults to 100000.
+        visibility_timeout (int, optional): Visibility timeout for received messages. Defaults to 1800.
+        page_size_messages (int, optional): Amount of messages to receive per call. Defaults to 10.
 
     Returns:
-        _type_: _description_
+        list: received messages
     """
+
+    # define sqs client
     sqs = boto3.client("sqs", region_name=region_name)
     messages = []
     messages_received = 0
+    # receive messages until no more messages visible or mx nar messages received
     while messages_received < max_nr_messages:
         logger.warning(f"{messages_received} messages received...")
+        # query queue
         response = sqs.receive_message(
             QueueUrl=queue_url,
             MaxNumberOfMessages=page_size_messages,
             VisibilityTimeout=visibility_timeout
             )
         
+        # add message to message list
         if "Messages" in response:
             current_messages = response["Messages"]
             messages_received += len(current_messages)
