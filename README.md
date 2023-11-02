@@ -35,8 +35,11 @@ Below steps for installation with Visual Studio Code are listed:
 - Add a profile to AWS Toolkit ([instructions](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/connect.html)). If not using VSC, profile credentials need to be given in a different manner, eg in the code.
 - Add _secrets.py file, see [example](/config/_secrets_example.py)
 
+To run the explorative notebook:
+- Execute ```jupyter notebook``` while the Poetry virtual environment is activated
+
 To run dash app: 
-poetry 
+- Execute [run.py](/dash_app/run.py) with VSC. Normally it should use the virtual environment that is created by Poetry and the AWS credentials provided to the AWS Toolkit
 
 
 
