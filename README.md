@@ -28,6 +28,18 @@ The Data from the DynamoDB is provisioned in a user interface based on the [Dash
 
 ## Installation
 
+Below steps for installation with Visual Studio Code are listed:
+- Clone this repository to your local maching
+- Execute ```poetry install``` in the project home directory
+- Install AWS Toolkit for Visual Studio Code [link](https://aws.amazon.com/visualstudiocode/)
+- Add a profile to AWS Toolkit ([instructions](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/connect.html)). If not using VSC, profile credentials need to be given in a different manner, eg in the code.
+- Add _secrets.py file, see [example](/config/_secrets_example.py)
+
+To run dash app: 
+poetry 
+
+
+
 ## Possible improvements
 
 - Add testing to the package code
