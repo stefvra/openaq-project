@@ -8,7 +8,7 @@ The goal of this project is to ingest air quality data from an AWS sqs source. I
 
 ## Dashboarding
 
-![title](/images/webapp_screenshot.png)
+![title](/assets/dash_screenshot.png)
 
 ## Installation
 
