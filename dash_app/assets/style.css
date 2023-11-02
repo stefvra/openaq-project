@@ -9,9 +9,14 @@ body {
     color: var(--fg-color);
     }
 
+#main-body {
+    margin: 1%
+    }
+
 #title {
     text-align: center;
     }
+
 
 #grid-container {
     display: grid;
@@ -24,7 +29,7 @@ body {
     }
 
 #map-graph {
-    margin: 2%;
+    margin: 0%;
     }    
 
 
@@ -34,11 +39,11 @@ body {
     display: flex;
     border-style: solid;
     border-color: gray;
-    margin: 6%;
+    margin: 0%;
     }
 
 
 #graph-graph {
-    margin: 2%
+    margin-top: 1%;
     }
     

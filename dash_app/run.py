@@ -1,9 +1,7 @@
 import sys
-import decimal
 
 import boto3
-import datetime
-from boto3.dynamodb.conditions import Attr, Key
+from datetime import datetime, timedelta
 from dash import Dash, html, dcc, callback, Output, Input, dash_table
 import plotly.express as px
 import polars as pl
@@ -11,30 +9,17 @@ import polars as pl
 sys.path.append("config")
 from _secrets import profile_name, region_name, queue_url, table_name
 
+from openaqtools.ddb import get_measurements
+
 
 # read data from dynamoDb
 
 boto3.setup_default_session(profile_name=profile_name)
-table = boto3.resource('dynamodb', region_name=region_name).Table(table_name)
-local_time = datetime.datetime.now() - datetime.timedelta(hours=6)
 
+start_time = datetime.now() - timedelta(hours=6)
 parameters = ["pm25", "o3", "so2", "pm10", "co", "no2"]
-dfs = []
-for parameter in parameters:
-    filt = Key("parameter").eq(parameter) & Key("timestamp").gt(decimal.Decimal(local_time.timestamp()))
-    data = table.query(KeyConditionExpression=filt)
-    dfs.append(pl.from_dicts(data["Items"]))
-df = pl.concat(dfs, rechunk=True)
-df = df.with_columns(df["coordinates"].str.json_extract()).unnest("coordinates")
-df = df.with_columns(df["date"].str.json_extract()).unnest("date")
-df = df.with_columns(pl.col(["utc", "local"]).str.to_datetime())
+df = get_measurements(table_name, region_name, parameters, start_time=start_time)
 
-
-
-colors = {
-    "black": "#33334d",
-    "white": "#ffffff"
-}
 
 # Initialize the app
 app = Dash(__name__)
@@ -53,6 +38,7 @@ selection_box = dcc.RadioItems(
 
 # App layout
 app.layout = html.Div(
+    id="main-body",
     children=[
         html.Div(),
         html.H1(
