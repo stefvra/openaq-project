@@ -17,6 +17,8 @@ geopy = "^2.4.0"
 jupyter = "^1.0.0"
 dash = "^2.14.1"
 dash-renderer = "^1.9.1"
+pandas = "2.0.3"
+pyarrow = "^14.0.0"
 
 
 [tool.poetry.group.dev.dependencies]

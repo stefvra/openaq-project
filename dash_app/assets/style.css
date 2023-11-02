@@ -1,0 +1,44 @@
+:root {
+    --bg-color:#33334d;
+    --fg-color:#ffffff;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    }
+
+#title {
+    text-align: center;
+    }
+
+#grid-container {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    }
+
+
+#map-div {
+    grid-column: 1 / span 4;
+    }
+
+#map-graph {
+    margin: 2%;
+    }    
+
+
+#right-column {
+    grid-column: 5;
+    justify-content: center;
+    display: flex;
+    border-style: solid;
+    border-color: gray;
+    margin: 6%;
+    }
+
+
+#graph-graph {
+    margin: 2%
+    }
+    
