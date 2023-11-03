@@ -23,13 +23,17 @@ df = df.group_by(["location", "parameter"]).agg(
     pl.col("value").mean(),
     pl.col("latitude").mean(),
     pl.col("longitude").mean(),
+    pl.col("timestamp").max()
 )
+
+df = df.with_columns(pl.from_epoch("timestamp", time_unit="s").alias("last updated"))
 
 # Determine the parameters that are available
 options = df["parameter"].unique().to_list()
 
 # Initialize the app
 app = Dash(__name__)
+app.title = "Air quality"
 
 
 
@@ -93,6 +97,7 @@ def update_map(parameter):
         color="value",
         size=len(df_filtered)*[size],
         hover_name="location",
+        hover_data=["last updated"],
         mapbox_style="open-street-map",
         zoom=6,
         )
