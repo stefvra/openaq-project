@@ -21,7 +21,7 @@ The goal is to store the air quality data in a database. Therefore 2 resources a
 
 The Data from the DynamoDB is provisioned in a user interface based on the [Dash](https://dash.plotly.com/) framework. The app has 3 components:
 - Selector for selecting the pollutant. When selecting a pollutant, all other visuals are updated.
-- A map that shows the selected pollutant as a collored circle. The value shown is the mean value of the last 6 hours.
+- A map that shows the selected pollutant as a colored circle. The value shown is the mean value of the last 6 hours.
 - A graph that shows a longer history for a certain location. The default timeframe is 7 days. The location can be selected by clicking on the map.
 
 ![title](/assets/dash_screenshot.png)
