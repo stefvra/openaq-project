@@ -54,21 +54,33 @@ def get_measurements(
     # Query for all parameters. Needs to be iterative as aws does not allow querying multiple key parameter values
     for parameter in parameters:
 
+        lastEvaluatedKey = None
+
+        # Define keyword arguments dynamically in a dict
         key_exp = Key("parameter").eq(parameter) & time_exp
+        kwargs = {"KeyConditionExpression": key_exp}
 
         # If location is provided, a filter expression is added
-        if location is None:
-            data = table.query(KeyConditionExpression=key_exp)
-        else:
-            filt_exp = Attr("location").eq(location)
-            data = table.query(
-                KeyConditionExpression=key_exp,
-                FilterExpression=filt_exp
-                )
+        if location is not None:
+            kwargs["FilterExpression"] = Attr("location").eq(location)
+        
 
-        items = data["Items"]
-        if items is not None:
-            dfs.append(pl.from_dicts(data["Items"]))
+        # loop query executions untill no lastEvaluatedKey is found
+        while True:
+            if lastEvaluatedKey is not None:
+                kwargs["ExclusiveStartKey"] = lastEvaluatedKey
+
+            response = table.query(**kwargs)
+
+            items = response["Items"]
+            if items is not None:
+                dfs.append(pl.from_dicts(items))
+            
+            if "LastEvaluatedKey" in response:
+                lastEvaluatedKey = response['LastEvaluatedKey']
+            else:
+                break
+
 
     # Concatenate the dataframes and unpack the columns
     df = pl.concat(dfs, rechunk=True)
