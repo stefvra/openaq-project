@@ -51,3 +51,6 @@ To run dash app:
 - Provision the Dash app on a web service
 - Add data quality monitoring to the streaming services
 - Make lambda function more robust (eg message variations)
+- Add deployement pipeline
+- Add selectors on other attributes in Dash app
+- Solve bug: error when polutant is selected and no data for selected location is available
