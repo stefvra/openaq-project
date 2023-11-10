@@ -46,7 +46,7 @@ To run dash app:
 ## Possible improvements
 
 - Add testing to the package code
-- Add git precommit hooks for code quelity checking (eg black...)
+- Add git precommit hooks for code quality checking (eg black...)
 - Split repository in smalles parts (eg Dash app, exploration part, packaged modules...)
 - Provision the Dash app on a web service
 - Add data quality monitoring to the streaming services
