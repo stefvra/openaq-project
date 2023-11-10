@@ -3,12 +3,12 @@ import json
 
 import boto3
 from datetime import datetime, timedelta
-from dash import Dash, html, dcc, callback, Output, Input, dash_table
+from dash import Dash, html, dcc, callback, Output, Input
 import plotly.express as px
 import polars as pl
 
 sys.path.append("config")
-from _secrets import profile_name, region_name, queue_url, table_name
+from _secrets import profile_name, region_name, table_name
 
 from openaqtools.ddb import get_measurements
 from config import graph_days_back, map_hours_back, parameters
