@@ -54,3 +54,4 @@ To run dash app:
 - Add deployement pipeline
 - Add selectors on other attributes in Dash app
 - Solve bug: error when polutant is selected and no data for selected location is available
+- Add reference limits for pollutants in Dash app
