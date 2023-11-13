@@ -49,6 +49,9 @@ def get_measurements(
         time_exp = Key("timestamp").gt(decimal.Decimal(start_time.timestamp()))
     elif start_time == None:
         time_exp = Key("timestamp").lt(decimal.Decimal(stop_time.timestamp()))
+    else:
+        time_exp = Key("timestamp").lt(decimal.Decimal(stop_time.timestamp())) & \
+            Key("timestamp").gt(decimal.Decimal(start_time.timestamp()))
 
     dfs = []
     # Query for all parameters. Needs to be iterative as aws does not allow querying multiple key parameter values
